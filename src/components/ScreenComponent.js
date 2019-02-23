@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Segment, Grid, Button, Icon } from 'semantic-ui-react';
+import { Segment, Grid, Button, Icon, Label } from 'semantic-ui-react';
 import TileComponent from './TileComponent';
 
 class ScreenComponent extends Component {
@@ -14,6 +14,11 @@ class ScreenComponent extends Component {
         };
     }
 
+    handleMoves = (numberOfMoves) => {
+        moves = numberOfMoves;
+        console.log(moves);
+    }
+
     createGrid = () => {
         let grid = []
         let imageNumber = 0;
@@ -23,7 +28,9 @@ class ScreenComponent extends Component {
             let children = []
             //Inner loop to create children
             for (let j = 0; j < 4; j++) {
-                children.push(<Grid.Column width="4" key={imageNumber}><TileComponent image={imgs[imageNumber]} label={this.state.label} /></Grid.Column>)
+                children.push(<Grid.Column width="4" key={imageNumber}>
+                    <TileComponent image={imgs[imageNumber]} label={this.state.label} countMoves={this.handleMoves} />
+                </Grid.Column>)
                 imageNumber++;
             }
             //Create the parent and add the children
@@ -43,16 +50,24 @@ class ScreenComponent extends Component {
 
     restartGame = () => {
         this.forceUpdate();
+        //TODO tymczasowo
+        window.location.reload();
         console.log("apply logic")
+        this.setState({
+            moves: 0,
+            randomizedImages: []
+        })
     }
 
     toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
     render() {
-        console.log(card)
         return (
             <div>
-                <br/>
+                <br />
+                <Label color='teal'>Number of moves:
+                <Label.Detail>{moves}</Label.Detail>
+                </Label>
                 <Segment raised color="teal" >
                     <Grid>
                         {this.createGrid()}
@@ -70,6 +85,8 @@ class ScreenComponent extends Component {
     }
 }
 
+let moves = 0;
+
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -85,8 +102,5 @@ function shuffle(array) {
 
     return array;
 }
-
-let card = document.getElementsByClassName("card");
-// let cards = [...card];
 
 export default ScreenComponent;

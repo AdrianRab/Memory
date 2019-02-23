@@ -6,7 +6,8 @@ class TileComponent extends Component {
         super(props);
         this.state = {
             visibleImage: false,
-            visibleCover: true
+            visibleCover: true,
+            numberOfMoves: 0
         };
     }
 
@@ -15,7 +16,7 @@ class TileComponent extends Component {
             visibleImage: !this.state.visibleImage,
             visibleCover: !this.state.visibleCover
         });
-
+        console.log(openedCards)
         this.cardOpen();
         this.checkIfSame();
     }
@@ -23,6 +24,8 @@ class TileComponent extends Component {
     checkIfSame = () => {
         this.preventOpeningMoreThan2();
         if (openedCards.length === 2) {
+            console.log(openedCards[0].props.image);
+            console.log(openedCards[1].props.image);
             if (openedCards[0].props.image === openedCards[1].props.image) {
                 console.log("wartosci sie rownaja")
                 openedCards = [];
@@ -51,7 +54,13 @@ class TileComponent extends Component {
         openedCards.push(this);
         var len = openedCards.length;
         if (len === 2) {
-            numberOfMoves++;
+            this.setState({
+                numberOfMoves: this.state.numberOfMoves + 1
+            })
+
+            //TODO counter nie dziala
+            this.props.countMoves(this.state.numberOfMoves);
+            console.log(this.state.numberOfMoves);
         }
     };
 
@@ -77,6 +86,5 @@ class TileComponent extends Component {
 }
 
 let openedCards = [];
-let numberOfMoves = 0;
 
 export default TileComponent;
