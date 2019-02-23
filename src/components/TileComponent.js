@@ -1,41 +1,82 @@
 import React, { Component } from 'react';
-import { Segment, Reveal, Image } from 'semantic-ui-react';
+import { Segment, Transition, Card } from 'semantic-ui-react';
 
 class TileComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            image: this.props.image,
-            visibleCover: true,
-            visibleImage: false
+            visibleImage: false,
+            visibleCover: true
         };
-        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(event) {
-        console.log("cliked " + event.target);
+    handleClick = (event) => {
         this.setState({
-            visibleCover: !this.state.visibleCover,
-            visibleImage: !this.state.visibleImage
-        })
+            visibleImage: !this.state.visibleImage,
+            visibleCover: !this.state.visibleCover
+        });
+
+        this.cardOpen();
+        this.checkIfSame();
     }
+
+    checkIfSame = () => {
+        this.preventOpeningMoreThan2();
+        if (openedCards.length === 2) {
+            if (openedCards[0].props.image === openedCards[1].props.image) {
+                console.log("wartosci sie rownaja")
+                openedCards = [];
+            } else {
+                console.log("wartosci sie nie rownaja");
+                this.timeout = setTimeout(() => {
+                    console.log(openedCards)
+                    this.setState({
+                        visibleImage: !this.state.visibleImage,
+                        visibleCover: !this.state.visibleCover
+                    });
+                    if (openedCards[0] !== undefined) {
+                        openedCards[0].setState({
+                            visibleCover: true,
+                            visibleImage: false
+                        });
+                    }
+                    openedCards = [];
+                }, 700)
+
+            }
+        }
+    }
+
+    cardOpen = () => {
+        openedCards.push(this);
+        var len = openedCards.length;
+        if (len === 2) {
+            numberOfMoves++;
+        }
+    };
+
+    preventOpeningMoreThan2 = () => {
+        if (openedCards.length === 3) {
+            this.setState({
+                visibleImage: false,
+                visibleCover: true
+            })
+        }
+    };
 
     render() {
         return (
-
-            <Segment raised onClick={this.handleClick}>
-                <Reveal>
-                    <Reveal.Content visible={this.state.visibleCover} hidden={this.state.visibleImage}>
-                        <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png' size='small' />
-                    </Reveal.Content>
-                    <Reveal.Content visible={this.state.visibleImage} hidden={this.state.visibleCover}>
-                        {this.props.image}
-                    </Reveal.Content>
-                </Reveal>
+            <Segment raised compact textAlign="center">
+                <Transition.Group as={Card} duration={500} size='huge' animation="shake" id={this.props.image}>
+                    {this.state.visibleImage ? <Card fluid centered header={this.props.image} /> :
+                        <Card fluid centered header={this.props.label} onClick={this.handleClick} className="card" />}
+                </Transition.Group>
             </Segment>
         );
     }
 }
 
+let openedCards = [];
+let numberOfMoves = 0;
 
 export default TileComponent;
