@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './../src/resources/logo.svg';
 import './App.css';
 import ScreenComponent from '../src/components/ScreenComponent';
 
