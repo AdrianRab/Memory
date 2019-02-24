@@ -6,21 +6,21 @@ import acropolis from './../resources/acropolis.jpg';
 import ancientTheatre from './../resources/ancient-theatre.jpg';
 import colosseum from './../resources/colosseum.jpg';
 import castle from './../resources/castle.jpg';
-import china from './../resources/china.jpg';
-import colosseumInside from './../resources/colosseum-inside.jpg';
-import mexico from './../resources/mexico.jpg';
 import neuschwanstein from './../resources/neuschwanstein.jpg';
 import parthenon from './../resources/parthenon.jpg';
-import pierre from './../resources/pierre.jpg';
 import pontDuGard from './../resources/pont-du-gard.jpg';
-import pyramid from './../resources/pyramid.jpg';
 import ruin from './../resources/ruin.jpg';
-import sanGalgano from './../resources/san-galgano.jpg';
 import temple from './../resources/temple.jpg';
-import tower from './../resources/tower.jpg';
-import whitbyAbbey1 from './../resources/whitby-abbey-dark.jpg';
 import whitbyAbbey2 from './../resources/whitby-abbey.jpg';
 import cover from './../resources/memo-cover.png';
+// import tower from './../resources/tower.jpg';
+// import whitbyAbbey1 from './../resources/whitby-abbey-dark.jpg';
+// import sanGalgano from './../resources/san-galgano.jpg';
+// import pyramid from './../resources/pyramid.jpg';
+// import pierre from './../resources/pierre.jpg';
+// import china from './../resources/china.jpg';
+// import colosseumInside from './../resources/colosseum-inside.jpg';
+// import mexico from './../resources/mexico.jpg';
 
 class ScreenComponent extends Component {
     constructor(props) {
@@ -30,8 +30,7 @@ class ScreenComponent extends Component {
             rowsNumber: 3,
             label: cover,
             shuffledImages: [],
-            moves: 0,
-            difficultyLevel: 6
+            moves: 0
         };
     }
 
@@ -40,14 +39,13 @@ class ScreenComponent extends Component {
         this.setState({
             moves: numberOfMoves
         })
-        console.log("liczba ruchow " + this.state.moves)
-    }
+    };
 
     componentDidMount() {
         this.setState({
             shuffledImages: this.prepareImages()
         })
-    }
+    };
 
     createGrid = () => {
         let grid = []
@@ -66,16 +64,25 @@ class ScreenComponent extends Component {
             grid.push(<Grid.Row key={i}>{children}</Grid.Row>)
         }
         return grid
-    }
+    };
+
+    options = [
+        { key: 1, text: 'Level 1', value: 6 },
+        { key: 2, text: 'Level 2', value: 8 },
+        { key: 3, text: 'Level 3', value: 10 },
+    ];
+
+    difficultyLevel = 6;
 
     prepareImages = () => {
-        let imgs = this.state.images;
-        this.state.images.forEach(element => {
+        let imgs = this.state.images.slice(0, this.difficultyLevel);
+        let tempTable = imgs;
+        tempTable.forEach(element => {
             imgs.push(element);
         });
         shuffle(imgs);
         return imgs;
-    }
+    };
 
     restartGame = () => {
         this.forceUpdate();
@@ -85,18 +92,20 @@ class ScreenComponent extends Component {
         this.setState({
             moves: 0
         })
-    }
+    };
 
     onChange = (e, { value }) => {
-        console.log(e)
-        console.log(value);
-        this.setState({ difficultyLevel: value })
-    }
+        this.difficultyLevel = value;
+        this.setState({
+            shuffledImages: this.prepareImages(),
+            rowsNumber: value/2,
+            moves: 0
+        })
+    };
 
     render() {
         return (
-            <div>
-                <br />
+            <div className="screen-component">
                 <Segment raised>
                     <Grid verticalAlign="middle" >
                         <Grid.Row>
@@ -106,13 +115,13 @@ class ScreenComponent extends Component {
                                 </Label>
                             </Grid.Column>
                             <Grid.Column width={8}>
-                                <Dropdown options={options} selection button defaultValue={6} floating labeled icon='filter' className='icon' onChange={this.onChange}/>
+                                <Dropdown options={this.options} selection button defaultValue={this.difficultyLevel} floating labeled icon='filter' className='icon' onChange={this.onChange} />
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
                 </Segment>
                 <Segment raised color="teal" >
-                    <Grid verticalAlign="middle" >
+                    <Grid verticalAlign="middle" columns={4}>
                         {this.createGrid()}
                     </Grid>
                     <br />
@@ -126,13 +135,7 @@ class ScreenComponent extends Component {
             </div>
         );
     }
-}
-
-const options = [
-    { key: 1, text: 'Level 1', value: 6 },
-    { key: 2, text: 'Level 2', value: 8 },
-    { key: 3, text: 'Level 3', value: 10 },
-  ]
+};
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -148,6 +151,6 @@ function shuffle(array) {
     }
 
     return array;
-}
+};
 
 export default ScreenComponent;
