@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Segment, Transition, Card } from 'semantic-ui-react';
+import { Transition, Card } from 'semantic-ui-react';
+import './Style.css';
 
 class TileComponent extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class TileComponent extends Component {
             visibleCover: !this.state.visibleCover
         });
         console.log(openedCards)
-        this.cardOpen();
+        this.openCardAndUpdateMoves();
         this.checkIfSame();
     }
 
@@ -43,20 +44,18 @@ class TileComponent extends Component {
                         });
                     }
                     openedCards = [];
-                }, 700)
+                }, 1000)
 
             }
         }
     }
 
-    cardOpen = () => {
+    openCardAndUpdateMoves = () => {
         openedCards.push(this);
         var len = openedCards.length;
         if (len === 2) {
             numberOfMoves++
-            //TODO counter nie dziala
             this.props.countMoves(numberOfMoves);
-            console.log(numberOfMoves);
         }
     };
 
@@ -71,12 +70,10 @@ class TileComponent extends Component {
 
     render() {
         return (
-            <Segment raised compact textAlign="center">
-                <Transition.Group as={Card} duration={500} size='huge' animation="shake" id={this.props.image}>
-                    {this.state.visibleImage ? <Card fluid centered header={this.props.image} /> :
-                        <Card fluid centered header={this.props.label} onClick={this.handleClick} className="card" />}
+                <Transition.Group as={Card} animation="shake" >
+                    {this.state.visibleImage ? <Card color='olive' raised fluid centered image={this.props.image}  /> :
+                        <Card color='yellow' raised fluid centered image={this.props.label} onClick={this.handleClick} />}
                 </Transition.Group>
-            </Segment>
         );
     }
 }

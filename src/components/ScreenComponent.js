@@ -2,28 +2,47 @@
 import React, { Component } from 'react';
 import { Segment, Grid, Button, Icon, Label } from 'semantic-ui-react';
 import TileComponent from './TileComponent';
+import acropolis from './../resources/acropolis.jpg';
+import ancientTheatre from './../resources/ancient-theatre.jpg';
+import colosseum from './../resources/colosseum.jpg';
+import castle from './../resources/castle.jpg';
+import china from './../resources/china.jpg';
+import colosseumInside from './../resources/colosseum-inside.jpg';
+import mexico from './../resources/mexico.jpg';
+import neuschwanstein from './../resources/neuschwanstein.jpg';
+import parthenon from './../resources/parthenon.jpg';
+import pierre from './../resources/pierre.jpg';
+import pontDuGard from './../resources/pont-du-gard.jpg';
+import pyramid from './../resources/pyramid.jpg';
+import ruin from './../resources/ruin.jpg';
+import sanGalgano from './../resources/san-galgano.jpg';
+import temple from './../resources/temple.jpg';
+import tower from './../resources/tower.jpg';
+import whitbyAbbey1 from './../resources/whitby-abbey-dark.jpg';
+import whitbyAbbey2 from './../resources/whitby-abbey.jpg';
+import cover from './../resources/memo-cover.png';
 
 class ScreenComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            images: [1, 2, 3, 4, 5, 6],
+            images: [acropolis, ancientTheatre, castle, colosseum, colosseumInside, china],
             rowsNumber: 3,
-            visible: true,
-            label: "MEMORY",
+            label: cover,
             shuffledImages: [],
             moves: 0
         };
     }
 
+
     handleMoves = (numberOfMoves) => {
         this.setState({
-            moves:numberOfMoves
+            moves: numberOfMoves
         })
         console.log("liczba ruchow " + this.state.moves)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
             shuffledImages: this.prepareImages()
         })
@@ -32,16 +51,13 @@ class ScreenComponent extends Component {
     createGrid = () => {
         let grid = []
         let imageNumber = 0;
-        // let imgs = this.prepareImages();
-        // console.log(imgs)
-        console.log(this.state.shuffledImages);
         // Outer loop to create parent
         for (let i = 0; i < this.state.rowsNumber; i++) {
             let children = []
             //Inner loop to create children
             for (let j = 0; j < 4; j++) {
                 children.push(<Grid.Column width="4" key={imageNumber}>
-                    <TileComponent image={this.state.shuffledImages[imageNumber]} label={this.state.label} countMoves={this.handleMoves}/>
+                    <TileComponent image={this.state.shuffledImages[imageNumber]} label={this.state.label} countMoves={this.handleMoves} />
                 </Grid.Column>)
                 imageNumber++;
             }
@@ -65,19 +81,28 @@ class ScreenComponent extends Component {
         //TODO tymczasowo
         window.location.reload();
         console.log("apply logic")
+        this.setState({
+            moves: 0
+        })
     }
-
-    toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
     render() {
         return (
             <div>
                 <br />
-                <Label color='teal'>Number of moves:
-                <Label.Detail>{this.state.moves}</Label.Detail>
-                </Label>
+                <Segment raised>
+                    <Grid verticalAlign="middle" >
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Label size="massive" color='teal'>Number of moves:
+                                    <Label.Detail>{this.state.moves}</Label.Detail>
+                                </Label>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Segment>
                 <Segment raised color="teal" >
-                    <Grid>
+                    <Grid verticalAlign="middle" >
                         {this.createGrid()}
                     </Grid>
                     <br />
@@ -92,8 +117,6 @@ class ScreenComponent extends Component {
         );
     }
 }
-
-let moves = 0;
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
