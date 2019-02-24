@@ -10,26 +10,38 @@ class ScreenComponent extends Component {
             images: [1, 2, 3, 4, 5, 6],
             rowsNumber: 3,
             visible: true,
-            label: "MEMORY"
+            label: "MEMORY",
+            shuffledImages: [],
+            moves: 0
         };
     }
 
     handleMoves = (numberOfMoves) => {
-        moves = numberOfMoves;
-        console.log(moves);
+        this.setState({
+            moves:numberOfMoves
+        })
+        console.log("liczba ruchow " + this.state.moves)
+    }
+
+    componentDidMount(){
+        this.setState({
+            shuffledImages: this.prepareImages()
+        })
     }
 
     createGrid = () => {
         let grid = []
         let imageNumber = 0;
-        let imgs = this.prepareImages();
+        // let imgs = this.prepareImages();
+        // console.log(imgs)
+        console.log(this.state.shuffledImages);
         // Outer loop to create parent
         for (let i = 0; i < this.state.rowsNumber; i++) {
             let children = []
             //Inner loop to create children
             for (let j = 0; j < 4; j++) {
                 children.push(<Grid.Column width="4" key={imageNumber}>
-                    <TileComponent image={imgs[imageNumber]} label={this.state.label} countMoves={this.handleMoves} />
+                    <TileComponent image={this.state.shuffledImages[imageNumber]} label={this.state.label} countMoves={this.handleMoves}/>
                 </Grid.Column>)
                 imageNumber++;
             }
@@ -53,10 +65,6 @@ class ScreenComponent extends Component {
         //TODO tymczasowo
         window.location.reload();
         console.log("apply logic")
-        this.setState({
-            moves: 0,
-            randomizedImages: []
-        })
     }
 
     toggleVisibility = () => this.setState({ visible: !this.state.visible })
@@ -66,7 +74,7 @@ class ScreenComponent extends Component {
             <div>
                 <br />
                 <Label color='teal'>Number of moves:
-                <Label.Detail>{moves}</Label.Detail>
+                <Label.Detail>{this.state.moves}</Label.Detail>
                 </Label>
                 <Segment raised color="teal" >
                     <Grid>

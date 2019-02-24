@@ -6,8 +6,7 @@ class TileComponent extends Component {
         super(props);
         this.state = {
             visibleImage: false,
-            visibleCover: true,
-            numberOfMoves: 0
+            visibleCover: true
         };
     }
 
@@ -54,13 +53,10 @@ class TileComponent extends Component {
         openedCards.push(this);
         var len = openedCards.length;
         if (len === 2) {
-            this.setState({
-                numberOfMoves: this.state.numberOfMoves + 1
-            })
-
+            numberOfMoves++
             //TODO counter nie dziala
-            this.props.countMoves(this.state.numberOfMoves);
-            console.log(this.state.numberOfMoves);
+            this.props.countMoves(numberOfMoves);
+            console.log(numberOfMoves);
         }
     };
 
@@ -85,6 +81,7 @@ class TileComponent extends Component {
     }
 }
 
+let numberOfMoves = 0;
 let openedCards = [];
 
 export default TileComponent;
