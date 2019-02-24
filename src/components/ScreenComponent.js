@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Segment, Grid, Button, Icon, Label } from 'semantic-ui-react';
+import { Segment, Grid, Button, Icon, Label, Dropdown } from 'semantic-ui-react';
 import TileComponent from './TileComponent';
 import acropolis from './../resources/acropolis.jpg';
 import ancientTheatre from './../resources/ancient-theatre.jpg';
@@ -26,11 +26,12 @@ class ScreenComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            images: [acropolis, ancientTheatre, castle, colosseum, colosseumInside, china],
+            images: [acropolis, ancientTheatre, castle, colosseum, ruin, whitbyAbbey2, temple, pontDuGard, parthenon, neuschwanstein],
             rowsNumber: 3,
             label: cover,
             shuffledImages: [],
-            moves: 0
+            moves: 0,
+            difficultyLevel: 6
         };
     }
 
@@ -86,6 +87,12 @@ class ScreenComponent extends Component {
         })
     }
 
+    onChange = (e, { value }) => {
+        console.log(e)
+        console.log(value);
+        this.setState({ difficultyLevel: value })
+    }
+
     render() {
         return (
             <div>
@@ -93,10 +100,13 @@ class ScreenComponent extends Component {
                 <Segment raised>
                     <Grid verticalAlign="middle" >
                         <Grid.Row>
-                            <Grid.Column>
+                            <Grid.Column width={8}>
                                 <Label size="massive" color='teal'>Number of moves:
                                     <Label.Detail>{this.state.moves}</Label.Detail>
                                 </Label>
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                <Dropdown options={options} selection button defaultValue={6} floating labeled icon='filter' className='icon' onChange={this.onChange}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -117,6 +127,12 @@ class ScreenComponent extends Component {
         );
     }
 }
+
+const options = [
+    { key: 1, text: 'Level 1', value: 6 },
+    { key: 2, text: 'Level 2', value: 8 },
+    { key: 3, text: 'Level 3', value: 10 },
+  ]
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
