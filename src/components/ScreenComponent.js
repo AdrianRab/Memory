@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { Segment, Grid, Button, Icon, Label, Dropdown } from 'semantic-ui-react';
 import TileComponent from './TileComponent';
@@ -18,9 +17,7 @@ class ScreenComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // images: [acropolis, ancientTheatre, castle, colosseum, ruin, pyramid, temple, pontDuGard, parthenon, neuschwanstein],
             rowsNumber: 3,
-            label: cover,
             shuffledImages: [],
             moves: 0,
             updateChild : false
@@ -48,7 +45,7 @@ class ScreenComponent extends Component {
             
             for (let j = 0; j < 4; j++) {
                 children.push(<Grid.Column width="4" key={imageNumber}>
-                    <TileComponent image={this.state.shuffledImages[imageNumber]} label={this.state.label} countMoves={this.handleMoves} update={this.state.updateChild}/>
+                    <TileComponent image={this.state.shuffledImages[imageNumber]} label={cover} countMoves={this.handleMoves} update={this.state.updateChild}/>
                 </Grid.Column>)
                 imageNumber++;
             }
@@ -111,7 +108,7 @@ class ScreenComponent extends Component {
     render() {
         return (
             <div className="screen-component">
-                <Segment raised>
+                <Segment raised > 
                     <Grid verticalAlign="middle" >
                         <Grid.Row>
                             <Grid.Column width={8}>
@@ -126,7 +123,7 @@ class ScreenComponent extends Component {
                         </Grid.Row>
                     </Grid>
                 </Segment>
-                <Segment raised color="teal" >
+                <Segment raised color="teal"> 
                     <Grid container verticalAlign="middle" columns={4}>
                         {this.createGrid()}
                     </Grid>

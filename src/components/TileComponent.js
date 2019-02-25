@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Transition, Card } from 'semantic-ui-react';
-import './Style.css';
 
 class TileComponent extends Component {
     constructor(props) {
@@ -21,7 +20,6 @@ class TileComponent extends Component {
     };
 
     checkIfSame = () => {
-        console.log(openedCards);
         this.preventOpeningMoreThan2();
         if (openedCards.length === 2) {
             if (openedCards[0].props.image === openedCards[1].props.image) {
