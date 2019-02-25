@@ -16,23 +16,18 @@ class TileComponent extends Component {
             visibleImage: !this.state.visibleImage,
             visibleCover: !this.state.visibleCover
         });
-        console.log(openedCards)
         this.openCardAndUpdateMoves();
         this.checkIfSame();
-    }
+    };
 
     checkIfSame = () => {
+        console.log(openedCards);
         this.preventOpeningMoreThan2();
         if (openedCards.length === 2) {
-            console.log(openedCards[0].props.image);
-            console.log(openedCards[1].props.image);
             if (openedCards[0].props.image === openedCards[1].props.image) {
-                console.log("wartosci sie rownaja")
                 openedCards = [];
             } else {
-                console.log("wartosci sie nie rownaja");
                 this.timeout = setTimeout(() => {
-                    console.log(openedCards)
                     this.setState({
                         visibleImage: !this.state.visibleImage,
                         visibleCover: !this.state.visibleCover
@@ -48,7 +43,17 @@ class TileComponent extends Component {
 
             }
         }
-    }
+    };
+
+    componentWillReceiveProps(){
+        if(this.props.update){
+            this.setState({
+                visibleImage: false,
+                visibleCover: true
+            })
+            numberOfMoves = 0;
+        }
+    };
 
     openCardAndUpdateMoves = () => {
         openedCards.push(this);
@@ -60,7 +65,7 @@ class TileComponent extends Component {
     };
 
     preventOpeningMoreThan2 = () => {
-        if (openedCards.length === 3) {
+        if (openedCards.length > 2) {
             this.setState({
                 visibleImage: false,
                 visibleCover: true
@@ -78,7 +83,7 @@ class TileComponent extends Component {
     }
 }
 
-let numberOfMoves = 0;
 let openedCards = [];
+let numberOfMoves = 0;
 
 export default TileComponent;

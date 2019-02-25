@@ -11,29 +11,21 @@ import parthenon from './../resources/parthenon.jpg';
 import pontDuGard from './../resources/pont-du-gard.jpg';
 import ruin from './../resources/ruin.jpg';
 import temple from './../resources/temple.jpg';
-import whitbyAbbey2 from './../resources/whitby-abbey.jpg';
 import cover from './../resources/memo-cover.png';
-// import tower from './../resources/tower.jpg';
-// import whitbyAbbey1 from './../resources/whitby-abbey-dark.jpg';
-// import sanGalgano from './../resources/san-galgano.jpg';
-// import pyramid from './../resources/pyramid.jpg';
-// import pierre from './../resources/pierre.jpg';
-// import china from './../resources/china.jpg';
-// import colosseumInside from './../resources/colosseum-inside.jpg';
-// import mexico from './../resources/mexico.jpg';
+import pyramid from './../resources/pyramid.jpg';
 
 class ScreenComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            images: [acropolis, ancientTheatre, castle, colosseum, ruin, whitbyAbbey2, temple, pontDuGard, parthenon, neuschwanstein],
+            // images: [acropolis, ancientTheatre, castle, colosseum, ruin, pyramid, temple, pontDuGard, parthenon, neuschwanstein],
             rowsNumber: 3,
             label: cover,
             shuffledImages: [],
-            moves: 0
+            moves: 0,
+            updateChild : false
         };
-    }
-
+    };
 
     handleMoves = (numberOfMoves) => {
         this.setState({
@@ -50,17 +42,17 @@ class ScreenComponent extends Component {
     createGrid = () => {
         let grid = []
         let imageNumber = 0;
-        // Outer loop to create parent
+       
         for (let i = 0; i < this.state.rowsNumber; i++) {
             let children = []
-            //Inner loop to create children
+            
             for (let j = 0; j < 4; j++) {
                 children.push(<Grid.Column width="4" key={imageNumber}>
-                    <TileComponent image={this.state.shuffledImages[imageNumber]} label={this.state.label} countMoves={this.handleMoves} />
+                    <TileComponent image={this.state.shuffledImages[imageNumber]} label={this.state.label} countMoves={this.handleMoves} update={this.state.updateChild}/>
                 </Grid.Column>)
                 imageNumber++;
             }
-            //Create the parent and add the children
+            
             grid.push(<Grid.Row key={i}>{children}</Grid.Row>)
         }
         return grid
@@ -74,8 +66,11 @@ class ScreenComponent extends Component {
 
     difficultyLevel = 6;
 
+    images = [acropolis, ancientTheatre, castle, colosseum, ruin, pyramid, temple, pontDuGard, parthenon, neuschwanstein];
+
     prepareImages = () => {
-        let imgs = this.state.images.slice(0, this.difficultyLevel);
+        shuffle(this.images);
+        let imgs = this.images.slice(0, this.difficultyLevel);
         let tempTable = imgs;
         tempTable.forEach(element => {
             imgs.push(element);
@@ -84,23 +79,33 @@ class ScreenComponent extends Component {
         return imgs;
     };
 
+
     restartGame = () => {
-        this.forceUpdate();
-        //TODO tymczasowo
-        window.location.reload();
-        console.log("apply logic")
         this.setState({
-            moves: 0
+            moves: 0,
+            updateChild: true
         })
+        this.timeout = setTimeout(() => {
+            this.setState({
+                updateChild: false
+            })
+            this.forceUpdate();
+        }, 1000)
     };
 
     onChange = (e, { value }) => {
         this.difficultyLevel = value;
         this.setState({
-            shuffledImages: this.prepareImages(),
             rowsNumber: value/2,
-            moves: 0
+            moves: 0,
+            updateChild: true
         })
+        this.timeout = setTimeout(() => {
+            this.setState({
+                shuffledImages: this.prepareImages(),
+                updateChild: false
+            })
+        }, 500)
     };
 
     render() {
@@ -116,16 +121,17 @@ class ScreenComponent extends Component {
                             </Grid.Column>
                             <Grid.Column width={8}>
                                 <Dropdown options={this.options} selection button defaultValue={this.difficultyLevel} floating labeled icon='filter' className='icon' onChange={this.onChange} />
+                                <Label size="big" color='teal' tag>Difficulty level</Label>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
                 </Segment>
                 <Segment raised color="teal" >
-                    <Grid verticalAlign="middle" columns={4}>
+                    <Grid container verticalAlign="middle" columns={4}>
                         {this.createGrid()}
                     </Grid>
                     <br />
-                    <Button animated="vertical" onClick={this.restartGame}>
+                    <Button animated="vertical" onClick={this.restartGame} primary>
                         <Button.Content visible>Play again</Button.Content>
                         <Button.Content hidden>
                             <Icon name='redo' />
