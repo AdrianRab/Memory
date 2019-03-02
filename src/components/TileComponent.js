@@ -44,8 +44,8 @@ class TileComponent extends Component {
         }
     };
 
-    componentWillReceiveProps(){
-        if(this.props.update){
+    componentWillReceiveProps() {
+        if (this.props.update) {
             this.setState({
                 visibleImage: false,
                 visibleCover: true
@@ -74,10 +74,10 @@ class TileComponent extends Component {
 
     render() {
         return (
-                <Transition.Group as={Card} animation="shake" >
-                    {this.state.visibleImage ? <Card color='olive' raised fluid centered image={this.props.image}  /> :
-                        <Card color='yellow' raised fluid centered image={this.props.label} onClick={this.handleClick} />}
-                </Transition.Group>
+            <Transition.Group as={Card} animation="shake" >
+                {this.state.visibleImage ? <Card color='olive' raised fluid centered image={this.props.image} /> :
+                    <Card color='yellow' raised fluid centered image={this.props.label} onClick={this.handleClick} />}
+            </Transition.Group>
         );
     }
 }

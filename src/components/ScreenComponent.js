@@ -5,9 +5,6 @@ import TileComponent from './TileComponent';
 const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnChange, restartGame, rowsNumber, shuffledImages,
     cover, updateChild, handleMoves, open, openModal, countCoveredCards, coveredCards, playOnNextLevel }) => {
 
-    console.log(coveredCards);
-    console.log(difficultyLevel);
-
     if (coveredCards === 0) {
         openModal();
     }
@@ -48,14 +45,14 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                         </Grid.Column>
                         <Grid.Column width={8}>
                             <Dropdown options={difficultyOptions}
-                             selection button 
-                             defaultValue={difficultyLevel} 
-                             floating labeled 
-                             icon='filter' 
-                             className='icon' 
-                             onChange={handleOnChange}
-                             pointing
-                              />
+                                selection button
+                                defaultValue={difficultyLevel}
+                                floating labeled
+                                icon='filter'
+                                className='icon'
+                                onChange={handleOnChange}
+                                pointing
+                            />
                             <Label size="big" color='teal' tag>Difficulty level</Label>
                         </Grid.Column>
                     </Grid.Row>
@@ -84,19 +81,19 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                 </Modal.Content>
                 <Modal.Actions>
                     <Button
-                        color='black'
+                        color='vk'
                         icon='arrow circle right'
                         labelPosition='right'
                         onClick={playOnNextLevel}
                         content="Next level"
                     />
-                    {/* <Button
+                    <Button
                         positive
                         icon='redo'
                         labelPosition='right'
                         content="Play again"
                         onClick={restartGame}
-                    /> */}
+                    />
                 </Modal.Actions>
             </Modal>
         </div>

@@ -98,7 +98,7 @@ class ScreenContainer extends React.Component {
             this.setState({
                 level: this.state.level + 2
             })
-            this.difficultyLevel= this.difficultyLevel+2;
+            this.difficultyLevel = this.difficultyLevel + 2;
             this.restartGame();
         }
     };
