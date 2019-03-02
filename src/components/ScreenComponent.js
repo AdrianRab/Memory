@@ -46,12 +46,11 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                         <Grid.Column width={8}>
                             <Dropdown options={difficultyOptions}
                                 selection button
-                                defaultValue={difficultyLevel}
                                 floating labeled
                                 icon='filter'
                                 className='icon'
                                 onChange={handleOnChange}
-                                pointing
+                                value={difficultyLevel}
                             />
                             <Label size="big" color='teal' tag>Difficulty level</Label>
                         </Grid.Column>

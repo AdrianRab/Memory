@@ -70,7 +70,7 @@ class ScreenContainer extends React.Component {
 
     prepareImages = () => {
         shuffle(this.images);
-        let imgs = this.images.slice(0, this.difficultyLevel);
+        let imgs = this.images.slice(0, this.state.level);
         let tempTable = imgs;
         tempTable.forEach(element => {
             imgs.push(element);
@@ -96,10 +96,20 @@ class ScreenContainer extends React.Component {
     playOnNextLevel = () => {
         if (this.state.level < 10) {
             this.setState({
-                level: this.state.level + 2
+                updateChild: true,
+                level: this.state.level + 2,
+                coveredCards: this.state.level,
+                open: false
             })
+            this.timeout = setTimeout(() => {
+                this.setState({
+                    moves: 0,
+                    rowsNumber: this.state.rowsNumber + 1,
+                    shuffledImages: this.prepareImages(),
+                    updateChild: false
+                })
+            }, 500)
             this.difficultyLevel = this.difficultyLevel + 2;
-            this.restartGame();
         }
     };
 
@@ -109,7 +119,8 @@ class ScreenContainer extends React.Component {
             rowsNumber: value / 2,
             moves: 0,
             updateChild: true,
-            coveredCards: value
+            coveredCards: value,
+            level: value
         })
         this.timeout = setTimeout(() => {
             this.setState({
