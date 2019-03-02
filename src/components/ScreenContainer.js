@@ -108,7 +108,8 @@ class ScreenContainer extends React.Component {
         this.setState({
             rowsNumber: value / 2,
             moves: 0,
-            updateChild: true
+            updateChild: true,
+            coveredCards: value
         })
         this.timeout = setTimeout(() => {
             this.setState({
