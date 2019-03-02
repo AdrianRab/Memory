@@ -22,7 +22,8 @@ class ScreenContainer extends React.Component {
             moves: 0,
             updateChild: false,
             open: false,
-            coveredCards: this.difficultyLevel
+            coveredCards: this.difficultyLevel,
+            level: this.difficultyLevel
         };
     };
 
@@ -92,6 +93,16 @@ class ScreenContainer extends React.Component {
         }, 1000)
     };
 
+    playOnNextLevel = () => {
+        if (this.state.level < 10) {
+            this.setState({
+                level: this.state.level + 2
+            })
+            this.difficultyLevel= this.difficultyLevel+2;
+            this.restartGame();
+        }
+    };
+
     onChange = (e, { value }) => {
         this.difficultyLevel = value;
         this.setState({
@@ -113,7 +124,7 @@ class ScreenContainer extends React.Component {
                 rowsNumber={this.state.rowsNumber}
                 moves={this.state.moves}
                 difficultyOptions={this.options}
-                difficultyLevel={this.difficultyLevel}
+                difficultyLevel={this.state.level}
                 handleOnChange={this.onChange}
                 restartGame={this.restartGame}
                 shuffledImages={this.state.shuffledImages}
@@ -121,10 +132,10 @@ class ScreenContainer extends React.Component {
                 updateChild={this.state.updateChild}
                 handleMoves={this.handleMoves}
                 open={this.state.open}
-                onModalClose={this.closeModal}
                 openModal={this.openModal}
                 countCoveredCards={this.countCoveredCards}
                 coveredCards={this.state.coveredCards}
+                playOnNextLevel={this.playOnNextLevel}
             />
         )
     }
