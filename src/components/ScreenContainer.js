@@ -98,7 +98,7 @@ class ScreenContainer extends React.Component {
             this.setState({
                 updateChild: true,
                 level: this.state.level + 2,
-                coveredCards: this.state.level,
+                coveredCards: this.state.coveredCards + 2,
                 open: false
             })
             this.timeout = setTimeout(() => {
