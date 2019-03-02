@@ -30,3 +30,11 @@
     transform: rotate(360deg);
   }
 }
+
+.ui.modal>.actions{
+	text-align:center;
+}
+
+.ui.active.modal{
+	text-align:center;
+}

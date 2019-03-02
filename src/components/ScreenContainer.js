@@ -20,8 +20,21 @@ class ScreenContainer extends React.Component {
             rowsNumber: 3,
             shuffledImages: [],
             moves: 0,
-            updateChild: false
+            updateChild: false,
+            open: false
         };
+    };
+
+    openModal = () => {
+        this.setState({
+            open: true
+        })
+    };
+
+    closeModal = () => {
+        this.setState({
+            open: false
+        })
     };
 
     handleMoves = (numberOfMoves) => {
@@ -57,11 +70,11 @@ class ScreenContainer extends React.Component {
         return imgs;
     };
 
-
     restartGame = () => {
         this.setState({
             moves: 0,
-            updateChild: true
+            updateChild: true,
+            open: false
         })
         this.timeout = setTimeout(() => {
             this.setState({
@@ -99,6 +112,9 @@ class ScreenContainer extends React.Component {
                 cover={cover}
                 updateChild={this.state.updateChild}
                 handleMoves={this.handleMoves}
+                open={this.state.open}
+                onModalClose={this.closeModal}
+                openModal={this.openModal}
             />
         )
     }

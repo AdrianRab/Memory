@@ -1,13 +1,9 @@
 import React from 'react';
-import { Segment, Grid, Button, Icon, Label, Dropdown } from 'semantic-ui-react';
+import { Segment, Grid, Button, Icon, Label, Dropdown, Modal } from 'semantic-ui-react';
 import TileComponent from './TileComponent';
 
 const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnChange, restartGame, rowsNumber, shuffledImages,
-cover,updateChild, handleMoves}) => {
-
-    console.log(difficultyOptions);
-    console.log(difficultyLevel);
-    console.log(rowsNumber);
+    cover, updateChild, handleMoves, open, onModalClose, openModal }) => {
 
     const createGrid = () => {
         let grid = []
@@ -51,12 +47,45 @@ cover,updateChild, handleMoves}) => {
                 </Grid>
                 <br />
                 <Button animated="vertical" onClick={restartGame} primary>
-                    <Button.Content visible>Play again</Button.Content>
+                    <Button.Content visible>Restart</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='redo' />
+                    </Button.Content>
+                </Button>
+                <Button animated onClick={openModal} secondary>
+                    <Button.Content visible>Open modal</Button.Content>
                     <Button.Content hidden>
                         <Icon name='redo' />
                     </Button.Content>
                 </Button>
             </Segment>
+
+            <Modal dimmer='blurring' open={open} closeOnDimmerClick={false} closeOnEscape={false} size='small'>
+                    <Modal.Header>Congratulations! <Icon name='winner' color='yellow' /></Modal.Header>
+                    <Modal.Content image>
+                        <Modal.Description>
+                            <p>You have finished game with {moves} number of moves.</p>
+                            <p>Would you like to play again, or level up?</p>
+                        </Modal.Description>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button
+                            color='black'
+                            icon='arrow circle right'
+                            labelPosition='right'
+                            onClick={onModalClose}
+                            content="Next level"
+                        />
+
+                        <Button
+                            positive
+                            icon='redo'
+                            labelPosition='right'
+                            content="Play again"
+                            onClick={restartGame}
+                        />
+                    </Modal.Actions>
+            </Modal>
         </div>
     );
 };
