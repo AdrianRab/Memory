@@ -3,7 +3,13 @@ import { Segment, Grid, Button, Icon, Label, Dropdown, Modal } from 'semantic-ui
 import TileComponent from './TileComponent';
 
 const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnChange, restartGame, rowsNumber, shuffledImages,
-    cover, updateChild, handleMoves, open, onModalClose, openModal }) => {
+    cover, updateChild, handleMoves, open, onModalClose, openModal, countCoveredCards, coveredCards }) => {
+
+    console.log(coveredCards);
+
+    if (coveredCards === 0) {
+        openModal();
+    }
 
     const createGrid = () => {
         let grid = []
@@ -14,7 +20,12 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
 
             for (let j = 0; j < 4; j++) {
                 children.push(<Grid.Column width="4" key={imageNumber}>
-                    <TileComponent image={shuffledImages[imageNumber]} label={cover} countMoves={handleMoves} update={updateChild} />
+                    <TileComponent image={shuffledImages[imageNumber]}
+                        label={cover}
+                        countMoves={handleMoves}
+                        update={updateChild}
+                        countCoveredCards={countCoveredCards}
+                    />
                 </Grid.Column>)
                 imageNumber++;
             }
@@ -52,39 +63,33 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                         <Icon name='redo' />
                     </Button.Content>
                 </Button>
-                <Button animated onClick={openModal} secondary>
-                    <Button.Content visible>Open modal</Button.Content>
-                    <Button.Content hidden>
-                        <Icon name='redo' />
-                    </Button.Content>
-                </Button>
             </Segment>
 
             <Modal dimmer='blurring' open={open} closeOnDimmerClick={false} closeOnEscape={false} size='small'>
-                    <Modal.Header>Congratulations! <Icon name='winner' color='yellow' /></Modal.Header>
-                    <Modal.Content image>
-                        <Modal.Description>
-                            <p>You have finished game with {moves} number of moves.</p>
-                            <p>Would you like to play again, or level up?</p>
-                        </Modal.Description>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button
-                            color='black'
-                            icon='arrow circle right'
-                            labelPosition='right'
-                            onClick={onModalClose}
-                            content="Next level"
-                        />
+                <Modal.Header>Congratulations! <Icon name='winner' color='yellow' /></Modal.Header>
+                <Modal.Content image>
+                    <Modal.Description>
+                        <p>You have finished game with {moves} number of moves.</p>
+                        <p>Would you like to play again, or level up?</p>
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button
+                        color='black'
+                        icon='arrow circle right'
+                        labelPosition='right'
+                        onClick={onModalClose}
+                        content="Next level"
+                    />
 
-                        <Button
-                            positive
-                            icon='redo'
-                            labelPosition='right'
-                            content="Play again"
-                            onClick={restartGame}
-                        />
-                    </Modal.Actions>
+                    <Button
+                        positive
+                        icon='redo'
+                        labelPosition='right'
+                        content="Play again"
+                        onClick={restartGame}
+                    />
+                </Modal.Actions>
             </Modal>
         </div>
     );

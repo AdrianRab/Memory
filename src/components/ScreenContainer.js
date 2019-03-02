@@ -21,13 +21,15 @@ class ScreenContainer extends React.Component {
             shuffledImages: [],
             moves: 0,
             updateChild: false,
-            open: false
+            open: false,
+            coveredCards: this.difficultyLevel
         };
     };
 
     openModal = () => {
         this.setState({
-            open: true
+            open: true,
+            coveredCards: this.difficultyLevel
         })
     };
 
@@ -42,6 +44,12 @@ class ScreenContainer extends React.Component {
             moves: numberOfMoves
         })
     };
+
+    countCoveredCards = () => {
+        this.setState({
+            coveredCards: this.state.coveredCards - 1
+        })
+    }
 
     componentDidMount() {
         this.setState({
@@ -115,6 +123,8 @@ class ScreenContainer extends React.Component {
                 open={this.state.open}
                 onModalClose={this.closeModal}
                 openModal={this.openModal}
+                countCoveredCards={this.countCoveredCards}
+                coveredCards={this.state.coveredCards}
             />
         )
     }

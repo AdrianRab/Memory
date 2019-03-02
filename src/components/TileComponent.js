@@ -24,6 +24,7 @@ class TileComponent extends Component {
         if (openedCards.length === 2) {
             if (openedCards[0].props.image === openedCards[1].props.image) {
                 openedCards = [];
+                this.props.countCoveredCards();
             } else {
                 this.timeout = setTimeout(() => {
                     this.setState({
