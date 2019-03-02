@@ -83,11 +83,13 @@ class ScreenContainer extends React.Component {
         this.setState({
             moves: 0,
             updateChild: true,
-            open: false
+            open: false,
+            coveredCards: this.state.level
         })
         this.timeout = setTimeout(() => {
             this.setState({
-                updateChild: false
+                updateChild: false,
+                shuffledImages: this.prepareImages()
             })
             this.forceUpdate();
         }, 1000)
