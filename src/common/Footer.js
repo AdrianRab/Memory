@@ -6,7 +6,7 @@ class Footer extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="footer-style">
                 Version: {packageJson.version}
                 <a href='https://github.com/AdrianRab/Memory/wiki'><Icon color='black' name='github' size='big' link /></a>
             </div>

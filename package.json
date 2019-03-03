@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.7.0",
+    "react-confetti": "^2.4.1",
     "react-dom": "^16.7.0",
     "react-scripts": "^2.1.5",
     "semantic-ui-react": "^0.84.0"
