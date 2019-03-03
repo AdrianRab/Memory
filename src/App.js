@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import ScreenComponent from '../src/components/ScreenComponent';
+import ScreenContainer from '../src/components/ScreenContainer';
+import Footer from './common/Footer';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <ScreenComponent/>
+        <ScreenContainer/>
+        <Footer/>
       </div>
     );
   }
