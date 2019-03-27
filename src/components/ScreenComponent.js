@@ -1,11 +1,11 @@
 import React from 'react';
 import { Segment, Grid, Button, Icon, Label, Dropdown, Modal } from 'semantic-ui-react';
 import TileComponent from './TileComponent';
-import Confetti from './../common/Confetti'
+import Confetti from './../common/Confetti';
 
 const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnChange, restartGame, rowsNumber, shuffledImages,
-    cover, updateChild, handleMoves, open, openModal, countCoveredCards, coveredCards, playOnNextLevel }) => {
-
+    cover, updateChild, handleMoves, open, openModal, countCoveredCards, coveredCards, playOnNextLevel, t, i18n}) => {
+    
     if (coveredCards === 0) {
         openModal();
     }
@@ -33,6 +33,10 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
         return grid
     };
 
+    const changeLanguage = (lng) => {
+      i18n.changeLanguage(lng);
+    };
+
     return (
         <div className="screen-component">
             {open ? <Confetti /> : null}
@@ -43,6 +47,9 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                             <Label size="massive" color='teal'>Number of moves:
                                     <Label.Detail>{moves}</Label.Detail>
                             </Label>
+                            <h2>{t('Welcome to React.js')}</h2>
+                            <button onClick={() => changeLanguage('pl')}>pl</button>
+                            <button onClick={() => changeLanguage('en')}>en</button>
                         </Grid.Column>
                         <Grid.Column width={8}>
                             <Dropdown options={difficultyOptions}

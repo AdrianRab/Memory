@@ -12,6 +12,7 @@ import ruin from './../resources/ruin.jpg';
 import temple from './../resources/temple.jpg';
 import cover from './../resources/memo-cover.png';
 import pyramid from './../resources/pyramid.jpg';
+import { translate, Trans } from 'react-i18next';
 
 class ScreenContainer extends React.Component {
     constructor(props) {
@@ -57,6 +58,7 @@ class ScreenContainer extends React.Component {
             shuffledImages: this.prepareImages()
         })
     };
+
 
     options = [
         { key: 1, text: 'Level 1', value: 6 },
@@ -133,6 +135,11 @@ class ScreenContainer extends React.Component {
     };
 
     render() {
+        const { t, i18n } = this.props;
+ 
+        const changeLanguage = (lng) => {
+          i18n.changeLanguage(lng);
+        }
         return (
             <ScreenComponent
                 rowsNumber={this.state.rowsNumber}
@@ -150,10 +157,12 @@ class ScreenContainer extends React.Component {
                 countCoveredCards={this.countCoveredCards}
                 coveredCards={this.state.coveredCards}
                 playOnNextLevel={this.playOnNextLevel}
+                t={t}
+                i18n={i18n}
             />
         )
     }
 
 }
 
-export default ScreenContainer;
+export default translate('translations')(ScreenContainer);
