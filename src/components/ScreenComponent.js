@@ -44,7 +44,7 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                 <Grid verticalAlign="middle" >
                     <Grid.Row>
                         <Grid.Column width={8}>
-                            <Label size="massive" color='teal'>Number of moves:
+                            <Label size="massive" color='teal'>{t('Number of moves')}:
                                     <Label.Detail>{moves}</Label.Detail>
                             </Label>
                             <h2>{t('Welcome to React.js')}</h2>
@@ -60,7 +60,7 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                                 onChange={handleOnChange}
                                 value={difficultyLevel}
                             />
-                            <Label size="big" color='teal' tag>Difficulty level</Label>
+                            <Label size="big" color='teal' tag>{t('Difficulty level')}</Label>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -71,7 +71,7 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                 </Grid>
                 <br />
                 <Button animated="vertical" onClick={restartGame} primary>
-                    <Button.Content visible>Restart</Button.Content>
+                    <Button.Content visible>{t('Restart')}</Button.Content>
                     <Button.Content hidden>
                         <Icon name='redo' />
                     </Button.Content>

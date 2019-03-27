@@ -8,10 +8,20 @@ import translationPL from './locales/pl/translation.json';
 // the translations
 const resources = {
   en: {
-    translation: translationEN
+    translations: {
+        "Welcome to React.js": "Welcome to React.js",
+        "Restart": "Restart",
+        "Number of moves": "Number of moves",
+        "Difficulty level": "Difficulty level"
+    }
   },
   pl: {
-    translation: translationPL
+    translations: {
+        "Welcome to React.js": "Witaj w React.js",
+        "Restart": "Zrestartuj",
+        "Number of moves": "Liczba ruchów",
+        "Difficulty level": "Poziom trudności"
+    }
   }
 };
 
