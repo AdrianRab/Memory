@@ -1,10 +1,11 @@
 import React from 'react';
-import { Segment, Grid, Button, Icon, Label, Dropdown, Modal } from 'semantic-ui-react';
+import { Segment, Grid, Button, Icon, Label, Dropdown, Modal, Flag} from 'semantic-ui-react';
 import TileComponent from './TileComponent';
-import Confetti from './../common/Confetti'
+import Confetti from './../common/Confetti';
+import { Trans } from 'react-i18next';
 
-const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnChange, restartGame, rowsNumber, shuffledImages,
-    cover, updateChild, handleMoves, open, openModal, countCoveredCards, coveredCards, playOnNextLevel }) => {
+const ScreenComponent = ({ moves, difficultyLevel, handleOnChange, restartGame, rowsNumber, shuffledImages,
+    cover, updateChild, handleMoves, open, openModal, countCoveredCards, coveredCards, playOnNextLevel, t, i18n }) => {
 
     if (coveredCards === 0) {
         openModal();
@@ -33,19 +34,27 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
         return grid
     };
 
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
     return (
         <div className="screen-component">
             {open ? <Confetti /> : null}
             <Segment raised >
                 <Grid verticalAlign="middle" >
                     <Grid.Row>
-                        <Grid.Column width={8}>
-                            <Label size="massive" color='teal'>Number of moves:
+                        <Grid.Column width={9}>
+                            <Label size="massive" color='teal'>{t('Number of moves')}:
                                     <Label.Detail>{moves}</Label.Detail>
                             </Label>
                         </Grid.Column>
-                        <Grid.Column width={8}>
-                            <Dropdown options={difficultyOptions}
+                        <Grid.Column width={4}>
+                            <Dropdown options={[
+                                { key: 1, text: t('Level') + ' 1', value: 6 },
+                                { key: 2, text: t('Level') + ' 2', value: 8 },
+                                { key: 3, text: t('Level') + ' 3', value: 10 }
+                            ]}
                                 selection button
                                 floating labeled
                                 icon='filter'
@@ -53,7 +62,11 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                                 onChange={handleOnChange}
                                 value={difficultyLevel}
                             />
-                            <Label size="big" color='teal' tag>Difficulty level</Label>
+                            <Label size="big" color='teal' tag>{t('Difficulty level')}</Label>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                            <Flag name='pl' onClick={() => changeLanguage('pl')} />
+                            <Flag name='gb' onClick={() => changeLanguage('en')} />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -64,7 +77,7 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
                 </Grid>
                 <br />
                 <Button animated="vertical" onClick={restartGame} primary>
-                    <Button.Content visible>Restart</Button.Content>
+                    <Button.Content visible>{t('Restart')}</Button.Content>
                     <Button.Content hidden>
                         <Icon name='redo' />
                     </Button.Content>
@@ -72,33 +85,37 @@ const ScreenComponent = ({ moves, difficultyOptions, difficultyLevel, handleOnCh
             </Segment>
 
             <Modal dimmer='inverted' open={open} closeOnDimmerClick={false} closeOnEscape={false} size='small'>
-                <Modal.Header>Congratulations! <Icon name='winner' color='yellow' /></Modal.Header>
+                <Modal.Header><Trans i18nKey='congratulations'>Congratulations</Trans>! <Icon name='winner' color='yellow' /></Modal.Header>
                 <Modal.Content >
                     {difficultyLevel !== 10 ?
                         <Modal.Description>
-                            <p className='modal-info'>You have finished game in {moves} moves.</p>
-                            <p className='modal-info'>Would you like to play again, or level up?</p>
+                            <Trans i18nKey="gameSummary" moves={moves}>
+                                <p className='modal-info'>You have finished game in <strong>{{ moves }}</strong> moves. Would you like to play again, or level up?</p>
+                            </Trans>
                         </Modal.Description>
                         :
                         <Modal.Description>
-                            <p className='modal-info'>You have finished highest game level in {moves} moves.</p>
+                            <Trans i18nKey="highestLevelGameSummary" moves={moves}>
+                                <p className='modal-info'>You have finished highest game level in <strong>{{ moves }}</strong> moves.</p>
+                            </Trans>
                         </Modal.Description>
                     }
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button
-                        disabled={difficultyLevel === 10}
-                        color='vk'
-                        icon='arrow circle right'
-                        labelPosition='right'
-                        onClick={playOnNextLevel}
-                        content="Next level"
-                    />
+                    {difficultyLevel !== 10 ?
+                        <Button
+                            color='vk'
+                            icon='arrow circle right'
+                            labelPosition='right'
+                            onClick={playOnNextLevel}
+                            content={t('Next level')}
+                        /> :
+                        null}
                     <Button
                         positive
                         icon='redo'
                         labelPosition='right'
-                        content="Play again"
+                        content={t('Play again')}
                         onClick={restartGame}
                     />
                 </Modal.Actions>

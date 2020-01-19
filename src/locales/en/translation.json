@@ -1,0 +1,12 @@
+{
+  "Restart": "Restart",
+  "Number of moves": "Number of moves",
+  "Difficulty level": "Difficulty level",
+  "Play again": "Play again",
+  "Next level": "Next level",
+  "Level": "Level",
+  "Version": "Version",
+  "congratulations": "Congratulations",
+  "gameSummary": "You have finished game in <1>{{moves}}</1> moves. \n Would you like to play again, or level up?",
+  "highestLevelGameSummary": "You have finished highest game level in <1>{{moves}}</1> moves."
+}
