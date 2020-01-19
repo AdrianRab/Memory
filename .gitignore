@@ -7,7 +7,7 @@
 jspm_packages/
 
 # testing
-/coveragegit 
+/coverage
 
 # production
 /build
