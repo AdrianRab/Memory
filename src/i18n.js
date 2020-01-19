@@ -8,20 +8,10 @@ import translationPL from './locales/pl/translation.json';
 // the translations
 const resources = {
   en: {
-    translations: {
-        "Welcome to React.js": "Welcome to React.js",
-        "Restart": "Restart",
-        "Number of moves": "Number of moves",
-        "Difficulty level": "Difficulty level"
-    }
+    translations: translationEN
   },
   pl: {
-    translations: {
-        "Welcome to React.js": "Witaj w React.js",
-        "Restart": "Zrestartuj",
-        "Number of moves": "Liczba ruchów",
-        "Difficulty level": "Poziom trudności"
-    }
+    translations: translationPL
   }
 };
 
@@ -31,10 +21,9 @@ i18n
   .init({
     resources,
     lng: "en",
-
     fallbackLng: 'en',
     debug: true,
- 
+
     // have a common namespace used around the full app
     ns: ['translations'],
     defaultNS: 'translations',
@@ -44,10 +33,11 @@ i18n
     interpolation: {
       escapeValue: false // react already safes from xss
     },
-    
+
     react: {
-        wait: true
-      }
+      wait: true,
+      transSupportBasicHtmlNodes: true
+    }
   });
 
 export default i18n;

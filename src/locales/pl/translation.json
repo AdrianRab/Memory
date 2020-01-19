@@ -1,4 +1,12 @@
 {
-    "Welcome to React": "Witaj w react i react-i18next",
-    "Restart": "Zrestartuj"
-  }
+  "Restart": "Zrestartuj",
+  "Number of moves": "Liczba ruchów",
+  "Difficulty level": "Poziom trudności",
+  "Play again": "Zagraj ponownie",
+  "Next level": "Następny poziom",
+  "Level": "Poziom",
+  "Version": "Wersja",
+  "congratulations": "Gratulacje",
+  "gameSummary": "Ukończyłeś grę w <1>{{moves}}</1> ruchach. \n Zagraj ponownie lub przejdź na wyższy poziom.",
+  "highestLevelGameSummary": "Ukończyłeś najwyższy poziom gry w <1>{{moves}}</1> ruchach."
+}
