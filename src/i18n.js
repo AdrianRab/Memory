@@ -16,13 +16,13 @@ const resources = {
 };
 
 i18n
-  .use(detector)
   .use(reactI18nextModule) // passes i18n down to react-i18next
+  .use(detector) //should detect language, needs to be before init
   .init({
     resources,
-    lng: "en",
     fallbackLng: 'en',
     debug: true,
+    load: 'languageOnly',
 
     // have a common namespace used around the full app
     ns: ['translations'],
