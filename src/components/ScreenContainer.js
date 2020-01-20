@@ -1,17 +1,7 @@
 import React from 'react';
 import ScreenComponent from './ScreenComponent';
 import { shuffle } from '../util/functions';
-import acropolis from './../resources/acropolis.jpg';
-import ancientTheatre from './../resources/ancient-theatre.jpg';
-import colosseum from './../resources/colosseum.jpg';
-import castle from './../resources/castle.jpg';
-import neuschwanstein from './../resources/neuschwanstein.jpg';
-import parthenon from './../resources/parthenon.jpg';
-import pontDuGard from './../resources/pont-du-gard.jpg';
-import ruin from './../resources/ruin.jpg';
-import temple from './../resources/temple.jpg';
 import cover from './../resources/memo-cover.png';
-import pyramid from './../resources/pyramid.jpg';
 import { translate } from 'react-i18next';
 
 class ScreenContainer extends React.Component {
@@ -61,7 +51,11 @@ class ScreenContainer extends React.Component {
 
     difficultyLevel = 6;
 
-    images = [acropolis, ancientTheatre, castle, colosseum, ruin, pyramid, temple, pontDuGard, parthenon, neuschwanstein];
+    importAll(r) {
+        return r.keys().map(r);
+    }
+
+    images = this.importAll(require.context('./../resources/monuments', false, /\.(png|jpe?g|svg)$/));
 
     prepareImages = () => {
         shuffle(this.images);
