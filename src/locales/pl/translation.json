@@ -8,5 +8,11 @@
   "Version": "Wersja",
   "congratulations": "Gratulacje",
   "gameSummary": "Ukończyłeś grę w <1>{{moves}}</1> ruchach. \n Zagraj ponownie lub przejdź na wyższy poziom.",
-  "highestLevelGameSummary": "Ukończyłeś najwyższy poziom gry w <1>{{moves}}</1> ruchach."
+  "highestLevelGameSummary": "Ukończyłeś najwyższy poziom gry w <1>{{moves}}</1> ruchach.",
+  "Category": "Kategoria",
+  "Monuments": "Zabytki",
+  "Sport": "Sport",
+  "Landscapes": "Krajobrazy",
+  "Animals": "Zwierzęta",
+  "Motorisation": "Motoryzacja"
 }

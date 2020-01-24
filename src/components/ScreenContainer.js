@@ -50,12 +50,38 @@ class ScreenContainer extends React.Component {
     };
 
     difficultyLevel = 6;
+    categoryName = 'monuments';
 
     importAll(r) {
         return r.keys().map(r);
     }
 
     images = this.importAll(require.context('./../resources/monuments', false, /\.(png|jpe?g|svg)$/));
+
+    selectCategoryImages = (chosenCategory) => {
+        switch (chosenCategory) {
+            case 'monuments':
+                this.images = this.importAll(require.context('./../resources/monuments', false, /\.(png|jpe?g|svg)$/));
+                break;
+            case 'monuments2':
+                this.images = this.importAll(require.context('./../resources/monuments2', false, /\.(png|jpe?g|svg)$/));
+                break;
+            case 'sport':
+                this.images = this.importAll(require.context('./../resources/sport', false, /\.(png|jpe?g|svg)$/));
+                break;
+            case 'landscapes':
+                this.images = this.importAll(require.context('./../resources/landscapes', false, /\.(png|jpe?g|svg)$/));
+                break;
+            case 'animals':
+                this.images = this.importAll(require.context('./../resources/animals', false, /\.(png|jpe?g|svg)$/));
+                break;
+            case 'motorisation':
+                this.images = this.importAll(require.context('./../resources/motorisation', false, /\.(png|jpe?g|svg)$/));
+                break;
+            default:
+                this.images = this.importAll(require.context('./../resources/monuments', false, /\.(png|jpe?g|svg)$/));
+        }
+    }
 
     prepareImages = () => {
         shuffle(this.images);
@@ -104,7 +130,7 @@ class ScreenContainer extends React.Component {
         }
     };
 
-    onChange = (e, { value }) => {
+    onDifficultyLevelChange = (e, { value }) => {
         this.difficultyLevel = value;
         this.setState({
             rowsNumber: value / 2,
@@ -121,6 +147,24 @@ class ScreenContainer extends React.Component {
         }, 500)
     };
 
+    onCategoryChange = (e, { value }) => {
+        this.categoryName = value;
+        this.selectCategoryImages(value);
+        this.setState({
+            rowsNumber: this.difficultyLevel / 2,
+            moves: 0,
+            updateChild: true,
+            coveredCards: this.difficultyLevel,
+            level: this.difficultyLevel
+        })
+        this.timeout = setTimeout(() => {
+            this.setState({
+                shuffledImages: this.prepareImages(),
+                updateChild: false
+            })
+        }, 500)
+    }
+
     render() {
         const { t, i18n } = this.props;
 
@@ -129,7 +173,7 @@ class ScreenContainer extends React.Component {
                 rowsNumber={this.state.rowsNumber}
                 moves={this.state.moves}
                 difficultyLevel={this.state.level}
-                handleOnChange={this.onChange}
+                onDifficultyLevelChange={this.onDifficultyLevelChange}
                 restartGame={this.restartGame}
                 shuffledImages={this.state.shuffledImages}
                 cover={cover}
@@ -142,6 +186,8 @@ class ScreenContainer extends React.Component {
                 playOnNextLevel={this.playOnNextLevel}
                 t={t}
                 i18n={i18n}
+                onCategoryChange={this.onCategoryChange}
+                categoryName={this.categoryName}
             />
         )
     }

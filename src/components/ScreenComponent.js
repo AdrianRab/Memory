@@ -1,11 +1,12 @@
 import React from 'react';
-import { Segment, Grid, Button, Icon, Label, Dropdown, Modal, Flag} from 'semantic-ui-react';
+import { Segment, Grid, Button, Icon, Label, Dropdown, Modal, Flag } from 'semantic-ui-react';
 import TileComponent from './TileComponent';
 import Confetti from './../common/Confetti';
 import { Trans } from 'react-i18next';
 
-const ScreenComponent = ({ moves, difficultyLevel, handleOnChange, restartGame, rowsNumber, shuffledImages,
-    cover, updateChild, handleMoves, open, openModal, countCoveredCards, coveredCards, playOnNextLevel, t, i18n }) => {
+const ScreenComponent = ({ moves, difficultyLevel, onDifficultyLevelChange, restartGame, rowsNumber, shuffledImages,
+    cover, updateChild, handleMoves, open, openModal, countCoveredCards, coveredCards, playOnNextLevel, t, i18n,
+    onCategoryChange, categoryName }) => {
 
     if (coveredCards === 0) {
         openModal();
@@ -44,10 +45,28 @@ const ScreenComponent = ({ moves, difficultyLevel, handleOnChange, restartGame, 
             <Segment raised >
                 <Grid verticalAlign="middle" >
                     <Grid.Row>
-                        <Grid.Column width={9}>
+                        <Grid.Column width={4}>
                             <Label size="massive" color='teal'>{t('Number of moves')}:
                                     <Label.Detail>{moves}</Label.Detail>
                             </Label>
+                        </Grid.Column>
+                        <Grid.Column width={4}>
+                            <Dropdown options={[
+                                { key: 1, text: t('Monuments'), value: 'monuments' },
+                                { key: 2, text: t('Monuments') + ' 2', value: 'monuments2' },
+                                { key: 3, text: t('Sport'), value: 'sport' },
+                                { key: 4, text: t('Landscapes'), value: 'landscapes' },
+                                { key: 5, text: t('Animals'), value: 'animals' },
+                                { key: 6, text: t('Motorisation'), value: ' motorisation' }
+                            ]}
+                                selection button
+                                floating labeled
+                                icon='filter'
+                                className='icon'
+                                onChange={onCategoryChange}
+                                value={categoryName}
+                            />
+                            <Label size="big" color='teal' tag>{t('Category')}</Label>
                         </Grid.Column>
                         <Grid.Column width={4}>
                             <Dropdown options={[
@@ -59,12 +78,12 @@ const ScreenComponent = ({ moves, difficultyLevel, handleOnChange, restartGame, 
                                 floating labeled
                                 icon='filter'
                                 className='icon'
-                                onChange={handleOnChange}
+                                onChange={onDifficultyLevelChange}
                                 value={difficultyLevel}
                             />
                             <Label size="big" color='teal' tag>{t('Difficulty level')}</Label>
                         </Grid.Column>
-                        <Grid.Column width={3}>
+                        <Grid.Column width={4}>
                             <Flag name='pl' onClick={() => changeLanguage('pl')} />
                             <Flag name='gb' onClick={() => changeLanguage('en')} />
                         </Grid.Column>
