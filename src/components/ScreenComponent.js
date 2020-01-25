@@ -58,7 +58,7 @@ const ScreenComponent = ({ moves, difficultyLevel, onDifficultyLevelChange, rest
                                 { key: 3, text: t('Sport'), value: 'sport' },
                                 { key: 4, text: t('Landscapes'), value: 'landscapes' },
                                 { key: 5, text: t('Animals'), value: 'animals' },
-                                { key: 6, text: t('Motorisation'), value: ' motorisation' }
+                                { key: 6, text: t('Motorisation'), value: 'motorisation' }
                             ]}
                                 selection button
                                 floating labeled
