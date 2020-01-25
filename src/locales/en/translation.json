@@ -8,5 +8,11 @@
   "Version": "Version",
   "congratulations": "Congratulations",
   "gameSummary": "You have finished game in <1>{{moves}}</1> moves. \n Would you like to play again, or level up?",
-  "highestLevelGameSummary": "You have finished highest game level in <1>{{moves}}</1> moves."
+  "highestLevelGameSummary": "You have finished highest game level in <1>{{moves}}</1> moves.",
+  "Category": "Category",
+  "Monuments": "Monuments",
+  "Sport": "Sport",
+  "Landscapes": "Landscapes",
+  "Animals": "Animals",
+  "Motorisation": "Motorisation"
 }
