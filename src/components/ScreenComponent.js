@@ -46,11 +46,12 @@ const ScreenComponent = ({ moves, difficultyLevel, onDifficultyLevelChange, rest
                 <Grid verticalAlign="middle" >
                     <Grid.Row>
                         <Grid.Column width={4}>
-                            <Label size="massive" color='teal'>{t('Number of moves')}:
+                            <Label size="huge" color='teal'>{t('Number of moves')}:
                                     <Label.Detail>{moves}</Label.Detail>
                             </Label>
                         </Grid.Column>
                         <Grid.Column width={4}>
+                        <Label size="big" color='violet'>{t('Category')}</Label>
                             <Dropdown options={[
                                 { key: 1, text: t('Monuments'), value: 'monuments' },
                                 { key: 2, text: t('Monuments') + ' 2', value: 'monuments2' },
@@ -66,9 +67,9 @@ const ScreenComponent = ({ moves, difficultyLevel, onDifficultyLevelChange, rest
                                 onChange={onCategoryChange}
                                 value={categoryName}
                             />
-                            <Label size="big" color='teal' tag>{t('Category')}</Label>
                         </Grid.Column>
                         <Grid.Column width={4}>
+                        <Label size="big" color='violet'>{t('Difficulty level')}</Label>
                             <Dropdown options={[
                                 { key: 1, text: t('Level') + ' 1', value: 6 },
                                 { key: 2, text: t('Level') + ' 2', value: 8 },
@@ -81,7 +82,6 @@ const ScreenComponent = ({ moves, difficultyLevel, onDifficultyLevelChange, rest
                                 onChange={onDifficultyLevelChange}
                                 value={difficultyLevel}
                             />
-                            <Label size="big" color='teal' tag>{t('Difficulty level')}</Label>
                         </Grid.Column>
                         <Grid.Column width={4}>
                             <Flag name='pl' onClick={() => changeLanguage('pl')} />
